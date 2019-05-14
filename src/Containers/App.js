@@ -1,79 +1,126 @@
 import React, { Component } from 'react';
 import './App.css';
-import Quote from '../Components/Quote/Quote'; 
-import Buttons from '../Components/Buttons/Buttons'; 
-
-const quoteLibrary = [
-  {text: "You know you're in love when you can't fall asleep because reality is finally better than your dreams.", author: 'Dr. Suess', color: '#16a085'}, 
-  {text: 'Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do.', author: 'Mark Twain', color: '#27ae60'}, 
-  {text: 'The first step toward success is taken when you refuse to be a captive of the environment in which you first find yourself.', author: 'Mark Caine', color: '#2c3e50'}, 
-  {text: 'Love yourself first and everything else falls into line. You really have to love yourself to get anything done in this world.', author: 'Lucille Ball', color: '#f39c12'}, 
-  {text: 'Challenges are what make life interesting and overcoming them is what makes life meaningful.', author: 'Joshua J. Marine', color: '#e74c3c'},  
-  {text: 'Remember that the happiest people are not those getting more, but those giving more.', author: 'H. Jackson Brown, Jr.', color: '#9b59b6'}, 
-  {text: 'Live in the sunshine, swim the sea, drink the wild air.', author: 'Ralph Waldo Emerson', color: '#fb6964'},  
-  {text: 'We are what we repeatedly do; excellence, then, is not an act but a habit.', author: 'Aristotle', color: '#388894'}, 
-  {text: 'A man is a success if he gets up in the morning and gets to bed at night, and in between he does what he wants to do.', author: 'Bob Dylan', color: '#472e32'}, 
-  {text: 'The big lesson in life, baby, is never be scared of anyone or anything.', author: 'Frank Sinatra', color: '#94386C'}, 
-]; 
-
-const nextIndex = () => {
-  return Math.floor(Math.random() * quoteLibrary.length);
-};
-
-const constructTwitterUrl = {
-  preface: 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text="', 
-  connection: '"', 
-  ending: '' }; 
-
-const constructTumblrUrl = {
-  preface: 'https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption=', 
-  connection: '&content=', 
-  ending: '&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button'
-};
+import Editor from '../Components/Editor/Editor'; 
+import Preview from '../Components/Preview/Preview'; 
+import Toolbar from '../Components/Toolbar/Toolbar'; 
 
 class App extends Component {
-  state = {
-    randomIndex: nextIndex(),
+  constructor(props) {
+    super(props); 
+    this.state = {
+      editorMaximized: false, 
+      previewMaximized: false, 
+      editorInput: `
+# Welcome to Hanna's React Markdown Previewer!
+
+## Marked - Markdown Parser 
+[Marked](https://github.com/markedjs/marked/) lets you convert [Markdown](https://daringfireball.net/projects/markdown/) into HTML.  Markdown is a simple text format whose goal is to be very easy to read and write, even when not converted to HTML.  This demo page will let you type anything you like and see how it gets converted.  Live.  No more waiting around.
+
+### How To Use This Demo:
+
+1. Type in stuff on the left.
+2. See the live updates on the right.
+
+That's it.  Pretty simple. 
+  
+### And here's some cool stuff you can try:
+
+Heres some code, \`<div></div>\`, between 2 backticks.
+
+\`\`\`
+// this is multi-line code:
+
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+    return multiLineCode;
+  }
+}
+\`\`\`
+  
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://www.freecodecamp.com), and
+> Block Quotes!
+
+And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+        - Pretty awesome, huh? 
+
+
+1. And there are numbererd lists too.
+1. Use just 1s if you want! 
+1. But the list goes on...
+
+Last but not least, let's not forget embedded images:
+
+![React Logo w/ Text](https://goo.gl/Umyytc)
+
+`
+    }; 
+
+  this.changeHandler = this.changeHandler.bind(this); 
+  this.editorMaxHandler = this.editorMaxHandler.bind(this); 
+  this.previewMaxHandler = this.previewMaxHandler.bind(this); 
+  }
+
+  changeHandler(event) {
+    this.setState({
+      editorInput: event.target.value
+    }); 
   }; 
 
-  clickHandler = ( ) => {
-    this.setState ({
-      randomIndex: nextIndex(), 
+  editorMaxHandler() {
+    this.setState({
+      editorMaximized: !this.state.editorMaximized
     }); 
-  };
+  }; 
 
+  previewMaxHandler() {
+    this.setState({
+      previewMaximized: !this.state.previewMaximized
+    }); 
+  }; 
+  
   render () {
-    const quoteDisplay = quoteLibrary[this.state.randomIndex]; 
-
-    const fontColorStyle = {
-      color: quoteDisplay.color
-    }; 
-
-    const backgroundStyle = {
-      backgroundColor: quoteDisplay.color
-    }; 
-
-    const twitterFullUrl = () => {
-      return constructTwitterUrl.preface + quoteDisplay.text + constructTwitterUrl.connection + quoteDisplay.author
-    }; 
-
-    const tublrFullUrl = () => {
-      return constructTumblrUrl.preface + quoteDisplay.author + constructTumblrUrl.connection + quoteDisplay.text + constructTumblrUrl.ending
-    }; 
+    const classes = this.state.editorMaximized ? 
+          ['editorWrap maximized', 
+           'previewWrap hide', 
+           'fa fa-compress'] : 
+          this.state.previewMaximized ?
+          ['editorWrap hide', 
+           'previewWrap maximized', 
+           'fa fa-compress'] :
+          ['editorWrap', 
+           'previewWrap', 
+           'fa fa-arrows-alt'];
 
     return (
-      <div className="App" style = {backgroundStyle}>
-        <div style = {fontColorStyle}> 
-          <Quote 
-            text = {quoteDisplay.text}
-            author = {quoteDisplay.author}/>
-          <Buttons
-            twitterFullUrl = {twitterFullUrl()}
-            tublrFullUrl = {tublrFullUrl()}
-            clicked = {this.clickHandler}
-            buttonStyle = {backgroundStyle} />
+      <div className = 'App'>
+        <div className = {classes[0]}>
+          <Toolbar 
+            text = 'Editor (type in Markdown format in this box)' 
+            icon = {classes[2]}
+            clicked = {this.editorMaxHandler}
+            />
+          <Editor 
+            input = {this.state.editorInput}
+            changed = {this.changeHandler} />
         </div>
-      </div>
+        <div className = {classes[1]}>
+          <Toolbar 
+            text = 'Preview' 
+            icon = {classes[2]}
+            clicked = {this.previewMaxHandler}
+            />
+          <Preview
+            editorInput = {this.state.editorInput} />
+        </div>
+      </div>    
     );
   }; 
 }; 
