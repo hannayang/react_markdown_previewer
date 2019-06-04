@@ -26,3 +26,17 @@ div.hide {
   display: none; 
 }
 
+@media(max-width: 800px) {
+  .App {
+    display: block; 
+  }
+  .editorWrap {
+    width: 95vw; 
+    margin: 10px auto; 
+  }
+  .previewWrap {
+    width: 95vw; 
+    margin: 0 auto; 
+  }
+}
+

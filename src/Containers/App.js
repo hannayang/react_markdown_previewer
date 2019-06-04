@@ -103,7 +103,7 @@ Last but not least, let's not forget embedded images:
       <div className = 'App'>
         <div className = {classes[0]}>
           <Toolbar 
-            text = 'Editor (type in Markdown format in this box)' 
+            text = 'Editor (type Markdown here)' 
             icon = {classes[2]}
             clicked = {this.editorMaxHandler}
             />
