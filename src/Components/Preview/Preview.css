@@ -1,0 +1,19 @@
+.preview {
+  height: 708px; 
+  border: 1px solid #5D4954; 
+  border-top: none; 
+  overflow: scroll; 
+  padding: 0px 12px; 
+}
+
+@media(min-width: 1400px) {
+  .preview {
+    height: 800px; 
+  }
+}
+
+@media(min-width: 2000px) {
+  .preview {
+    height: 1050px; 
+  }
+}

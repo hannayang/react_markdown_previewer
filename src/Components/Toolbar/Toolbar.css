@@ -16,3 +16,17 @@ i {
   font-size: 22px; 
   cursor: pointer;
   }
+
+@media(min-width: 1400px) {
+  .toolbar {
+    font-size: 21px; 
+    padding: 8px; 
+  }
+}
+
+@media(min-width: 2000px) {
+  .toolbar {
+    font-size: 30px; 
+    padding: 15px; 
+  }
+}

@@ -58,7 +58,7 @@ And of course there are lists.
 
 Last but not least, let's not forget embedded images:
 
-![React Logo w/ Text](https://goo.gl/Umyytc)
+![React Logo w/ Text](https://www.fullstacklabs.co/img/developersReact/React@2x.png)
 
 `
     }; 

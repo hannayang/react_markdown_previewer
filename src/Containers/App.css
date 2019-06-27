@@ -40,3 +40,22 @@ div.hide {
   }
 }
 
+@media(min-width: 1400px) {
+  .App {
+    padding-top: 80px; 
+  }
+  .editorWrap {
+    margin-left: 35px; 
+    margin-right: 20px; 
+  }
+}
+
+@media(min-width: 2000px) {
+  .App {
+    padding-top: 150px; 
+  }
+  .editorWrap {
+    margin-left: 55px; 
+    margin-right: 30px; 
+  }
+}
